@@ -1,3 +1,5 @@
+# Calculates the number of plates to add to the bar to reach a certain weight.
+# Functions with any weight quantity, including micro-plates.
 def weight_calc(total):
     BAR = 45
     # Note: Input weight * quantity loaded onto bar at a time in pairs
