@@ -24,6 +24,9 @@ def main():
 
     # J Bench
     # Upper1-BP
+    # Updating the excel cells, section by section
+    # Note: this code is not very efficient and can be updated with function calls
+    # in the future
     for i in range(3, 10):
         bench_total = upper_1.cell(row=i, column=4).value
         upper_1.cell(row=i, column=6).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
