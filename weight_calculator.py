@@ -27,4 +27,5 @@ Notes for future improvements
 1) Hold the weights list in the excel spreadsheet and pull those values into a dict with key = weight,
 and value = quantity (in pairs)
 2) Change the weight_calc function so that rather than deleting an element, it simply starts at the next index
+Reasoning: it is not the best practice to delete items from a list as it is being iterated over
 '''
