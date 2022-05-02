@@ -9,12 +9,12 @@ def weight_calc(total):
     weights_used = []
     # Function runs as long as the total is at least 0.5lbs
     while total >= 0.5:
-        # If the total is greater than the first (heaviest weight) in the list of weights, subtract off the
+        # If the total is greater than the first (the heaviest weight) in the list of weights, subtract off the
         # weight of the first weight in the list and append it to weights_used, then remove it from the weights list
         if total >= weights[0]:
             total -= weights[0]
             weights_used.append(weights[0])
-
+        # Always delete the first element of weights, regardless of whether it was added to weights_used
         del weights[0]
 
     del weights_used[0]  # removes the bar from the printout
@@ -22,4 +22,9 @@ def weight_calc(total):
     # Half the total for a set of 2 weight plates
     return [weights_used/2 for weights_used in weights_used]
 
-
+'''
+Notes for future improvements
+1) Hold the weights list in the excel spreadsheet and pull those values into a dict with key = weight,
+and value = quantity (in pairs)
+2) Change the weight_calc function so that rather than deleting an element, it simply starts at the next index
+'''
