@@ -22,80 +22,53 @@ def main():
     final_weights = str(final_weights)
     upper_1['F4'] = final_weights'''
 
-    # J Bench
+    # Bench
     # Upper1-BP
     # Updating the excel cells, section by section
-    # Note: this code is not very efficient and can be updated with function calls
-    # in the future
+    # Note: this code is not as efficient as it could be
+    # TODO: Update with function to update each row
     for i in range(3, 10):
         bench_total = upper_1.cell(row=i, column=4).value
-        upper_1.cell(row=i, column=6).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
+        upper_1.cell(row=i, column=5).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
             ']', '')
     # OHP -D1
     for i in range(3, 9):
-        ohp_total = upper_1.cell(row=i, column=11).value
-        upper_1.cell(row=i, column=13).value = str(weight_calculator.weight_calc(ohp_total)).replace('[', '').replace(
+        ohp_total = upper_1.cell(row=i, column=10).value
+        upper_1.cell(row=i, column=11).value = str(weight_calculator.weight_calc(ohp_total)).replace('[', '').replace(
             ']', '')
     #  Upper2-BP
     for i in range(3, 8):
         bench_total = upper_2.cell(row=i, column=4).value
-        upper_2.cell(row=i, column=6).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
+        upper_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
             ']', '')
     #  Upper2-CG Bench
     for i in range(11, 15):
         bench_total = upper_2.cell(row=i, column=4).value
-        upper_2.cell(row=i, column=6).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
-            ']', '')
-
-    # T Bench
-    # Upper1-Bench
-    for i in range(3, 10):
-        bench_total = upper_1.cell(row=i, column=5).value
-        upper_1.cell(row=i, column=7).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
-            ']', '')
-    # Upper2-Bench
-    for i in range(3, 8):
-        bench_total = upper_2.cell(row=i, column=5).value
-        upper_2.cell(row=i, column=7).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
-            ']', '')
-    # Upper2-CG Bench
-    for i in range(11, 15):
-        bench_total = upper_2.cell(row=i, column=5).value
-        upper_2.cell(row=i, column=7).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
+        upper_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
             ']', '')
 
     # Lower Days
-    # J Lower1-S
+    #   Lower1-S
     for i in range(3, 10):
         squat_total = lower_1.cell(row=i, column=4).value
-        lower_1.cell(row=i, column=6).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
+        lower_1.cell(row=i, column=5).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
             ']', '')
-    # J Lower1-SDL
+    #  Lower1-SDL
     for i in range(13, 17):
         sdl_total = lower_1.cell(row=i, column=4).value
-        lower_1.cell(row=i, column=6).value = str(weight_calculator.weight_calc(sdl_total)).replace('[', '').replace(
+        lower_1.cell(row=i, column=5).value = str(weight_calculator.weight_calc(sdl_total)).replace('[', '').replace(
             ']', '')
-    # J Lower2-CDL
+    #  Lower2-CDL
     for i in range(3, 8):
         cdl_total = lower_2.cell(row=i, column=4).value
         lower_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(cdl_total)).replace('[', '').replace(
             ']', '')
-    # J Lower2-FS
+    #  Lower2-FS
     for i in range(12, 18):
         squat_total = lower_2.cell(row=i, column=4).value
-        lower_2.cell(row=i, column=6).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
+        lower_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
             ']', '')
 
-    # T Lower1-S
-    for i in range(3, 10):
-        squat_total = lower_1.cell(row=i, column=5).value
-        lower_1.cell(row=i, column=7).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
-            ']', '')
-    # T Lower2-S
-    for i in range(12, 18):
-        squat_total = lower_2.cell(row=i, column=5).value
-        lower_2.cell(row=i, column=7).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
-            ']', '')
 
     wb.save('Workout.xlsx')
 
