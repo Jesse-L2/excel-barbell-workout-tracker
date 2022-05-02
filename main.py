@@ -31,17 +31,17 @@ def main():
         bench_total = upper_1.cell(row=i, column=4).value
         upper_1.cell(row=i, column=6).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
             ']', '')
-        # J OHP -D1
+    # OHP -D1
     for i in range(3, 9):
         ohp_total = upper_1.cell(row=i, column=11).value
         upper_1.cell(row=i, column=13).value = str(weight_calculator.weight_calc(ohp_total)).replace('[', '').replace(
             ']', '')
-    # Upper2-BP
+    #  Upper2-BP
     for i in range(3, 8):
         bench_total = upper_2.cell(row=i, column=4).value
         upper_2.cell(row=i, column=6).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
             ']', '')
-    # Upper2-CG Bench
+    #  Upper2-CG Bench
     for i in range(11, 15):
         bench_total = upper_2.cell(row=i, column=4).value
         upper_2.cell(row=i, column=6).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
