@@ -1,6 +1,13 @@
-"""Calculates the number of plates to add to the bar to reach a certain weight.
+"""
+weight_calculator.py
+~~~~~~~~~~~~~~~~~~~~
+This module calculates the number of plates to add to the bar to reach a certain weight.
 Functions with any weight quantity, including micro-plates.
-weight_calc(int or float)"""
+Input weight_calc(int or float)
+Output is a list containing floating point numbers [float, float, ...]
+"""
+
+
 def weight_calc(total=0):
     BAR = 45
     """Note: Input weight * quantity loaded onto bar at a time in pairs
@@ -22,7 +29,6 @@ def weight_calc(total=0):
 
     # Half the total for a set of 2 weight plates
     return [weights_used / 2 for weights_used in weights_used]
-
 
 
 """Notes for future improvements

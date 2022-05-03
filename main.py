@@ -1,3 +1,16 @@
+"""
+main.py
+~~~~~~~
+The main function of this program uses openpyxl to read the intended weight to be
+lifted from various locations in the 'Workout.xlsx' spreadsheet and then apply and
+output the weight_calc() function from weight_calculator.py to the various rows and
+columns of the 'Workout.xlsx' spreadsheet
+
+Note - 'Workout.xlsx' is a requirement for this program to run, however weight_calc()
+will function if called separately onto any int or floating point number
+
+"""
+
 from openpyxl import Workbook, load_workbook
 import weight_calculator
 
@@ -5,16 +18,18 @@ import weight_calculator
 def main():
     try:
         wb = load_workbook('Workout.xlsx', data_only=True)
+    # If the workbook doesn't currently exist, create it
+    # TODO: create code to build workbook from scratch if it does not exist
     except FileNotFoundError:
         wb = Workbook()
         wb.save(filename="Workout.xlsx")
-
-    maxes = wb['Maxes']
+    # Create variables to reference to particular sheets in the Excel doc
+    maxes = wb['Maxes']  # currently unused
     upper_1 = wb['Upper1']
     lower_1 = wb['Lower1']
     upper_2 = wb['Upper2']
     lower_2 = wb['Lower2']
-    theo_maxes = wb['Theoretical Weight Scheme']
+    theo_maxes = wb['Theoretical Weight Scheme']  # currently unused
 
     """Sample code for updating one single cell
     weight = upper_1['D4'].value # float
@@ -23,8 +38,8 @@ def main():
     upper_1['F4'] = final_weights"""
 
     # Upper1 - Bench Press
-    # Updating the excel cells, section by section
-    # TODO: Update with function to update each row
+    # Update the excel cells, section by section
+    # TODO: Update with function to update each row, rather than iterating several times
     for i in range(3, 10):
         bench_total = upper_1.cell(row=i, column=4).value
         upper_1.cell(row=i, column=5).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
@@ -67,7 +82,7 @@ def main():
         lower_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
             ']', '')
 
-
+    # Save the spreadsheet over the previous spreadsheet
     wb.save('Workout.xlsx')
 
 
