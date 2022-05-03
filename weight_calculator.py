@@ -8,7 +8,7 @@ Output is a list containing floating point numbers [float, float, ...]
 """
 
 
-def weight_calc(total=0):
+def weight_calc(total: float) -> list[float]:
     BAR = 45
     """Note: Input weight * quantity loaded onto bar at a time in pairs
     If 2 sets of a weight, add to list twice, ex: 10*2, 10*2 for 4 total 10s"""
