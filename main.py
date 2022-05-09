@@ -7,7 +7,9 @@ output the weight_calc() function from weight_calculator.py to the various rows 
 columns of the 'Workout.xlsx' spreadsheet
 
 Note - 'Workout.xlsx' is a requirement for this program to run, however weight_calc()
-will function if called separately onto any int or floating point number
+will function if called separately onto any int or floating point number, provided that
+number is less than the total sum of weights within the weight_calc function in
+weight_calculator.py
 
 """
 
