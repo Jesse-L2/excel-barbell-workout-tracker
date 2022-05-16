@@ -9,7 +9,6 @@ Output is a list containing floating point numbers [float, float, ...]
 
 
 def weight_calc(total: float) -> list[float]:
-    BAR = 45
     """
     Calculate weights needed to be added to barbell.
     
@@ -22,6 +21,8 @@ def weight_calc(total: float) -> list[float]:
     Note: Input weight * quantity loaded onto bar at a time in pairs
     If 2 sets of a weight, add to list twice, ex: 10*2, 10*2 for 4 total 10s
     """
+
+    BAR = 45
     weights = [BAR, 45 * 2, 35 * 2, 25 * 2, 10 * 2, 10 * 2, 5 * 2, 2.5 * 2, 1 * 2, 0.75 * 2, 0.5 * 2, 0.25 * 2]
     weights_used = []
     # Function runs as long as the total is at least 0.5lbs
