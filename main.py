@@ -12,7 +12,7 @@ number is less than the total sum of weights within the weight_calc function in
 weight_calculator.py
 
 """
-
+# TODO: change from openpyxl to xlwings https://docs.xlwings.org/en/stable/quickstart.html
 from openpyxl import Workbook, load_workbook
 import weight_calculator
 
