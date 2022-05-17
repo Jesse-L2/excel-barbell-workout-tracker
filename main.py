@@ -29,6 +29,8 @@ def iter_weight_calc(row_min, row_max, col, output_col, sheet):
             ']', '')
 
 def update_total(row_min, row_max, col, output_col, sheet, exercise_max):
+    """Takes the value from the Weight Percent column and multiplies that by the total of that exercise from the
+    Maxes sheet and outputs it into the column to the right of Weight Percent"""
     for i in range(row_min, row_max):
         multiplier = sheet.cell(row=i, column=col).value
         sheet.cell(row=i, column=output_col).value = multiplier * exercise_max
