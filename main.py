@@ -18,6 +18,9 @@ import weight_calculator
 
 
 def iter_weight_calc(row_min, row_max, col, output_col, sheet):
+    """Takes the value from each column in the range between row_min and row_max - 1 and iterate
+    over each equivalent range of output_col with weight_calc() from weight_calculator.py and clean
+    up the output"""
     for i in range(row_min, row_max):
         total = sheet.cell(row=i, column=col).value
         sheet.cell(row=i, column=output_col).value = str(weight_calculator.weight_calc(total)).replace('[', '').replace(
