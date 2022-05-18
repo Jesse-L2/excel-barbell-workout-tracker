@@ -9,9 +9,20 @@ Output is a list containing floating point numbers [float, float, ...]
 
 
 def weight_calc(total: float) -> list[float]:
+    """
+    Calculate weights needed to be added to barbell.
+    
+    :param total: Total weight on barbell
+    :type total: int
+    :raise TypeError: If n is not an int or float
+    :return: A list of weights to use, all in one list
+    :rtype: list
+    
+    Note: Input weight * quantity loaded onto bar at a time in pairs
+    If 2 sets of a weight, add to list twice, ex: 10*2, 10*2 for 4 total 10s
+    """
+
     BAR = 45
-    """Note: Input weight * quantity loaded onto bar at a time in pairs
-    If 2 sets of a weight, add to list twice, ex: 10*2, 10*2 for 4 total 10s"""
     weights = [BAR, 45 * 2, 35 * 2, 25 * 2, 10 * 2, 10 * 2, 5 * 2, 2.5 * 2, 1 * 2, 0.75 * 2, 0.5 * 2, 0.25 * 2]
     weights_used = []
     # Function runs as long as the total is at least 0.5lbs
@@ -36,4 +47,5 @@ def weight_calc(total: float) -> list[float]:
 and value = quantity (in pairs)
 2) Change the weight_calc function so that rather than deleting an element, it simply starts at the next index
 Reasoning: it is not the best practice to delete items from a list as it is being iterated over
+3) Would a deque be a better data structure to use? It would eliminate del weights[0] and weights[0]
 """

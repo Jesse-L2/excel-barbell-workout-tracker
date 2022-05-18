@@ -7,13 +7,33 @@ output the weight_calc() function from weight_calculator.py to the various rows 
 columns of the 'Workout.xlsx' spreadsheet
 
 Note - 'Workout.xlsx' is a requirement for this program to run, however weight_calc()
-will function if called separately onto any int or floating point number
+will function if called separately onto any int or floating point number, provided that
+number is less than the total sum of weights within the weight_calc function in
+weight_calculator.py
 
 """
-
+# TODO: change from openpyxl to xlwings https://docs.xlwings.org/en/stable/quickstart.html
 from openpyxl import Workbook, load_workbook
+from openpyxl.utils import get_column_letter
+from openpyxl.styles import Font
 import weight_calculator
 
+
+def iter_weight_calc(row_min, row_max, col, output_col, sheet):
+    """Takes the value from each column in the range between row_min and row_max - 1 and iterate
+    over each equivalent range of output_col with weight_calc() from weight_calculator.py and clean
+    up the output"""
+    for i in range(row_min, row_max):
+        total = sheet.cell(row=i, column=col).value
+        sheet.cell(row=i, column=output_col).value = str(weight_calculator.weight_calc(total)).replace('[', '').replace(
+            ']', '')
+
+def update_total(row_min, row_max, col, output_col, sheet, exercise_max):
+    """Takes the value from the Weight Percent column and multiplies that by the total of that exercise from the
+    Maxes sheet and outputs it into the column to the right of Weight Percent"""
+    for i in range(row_min, row_max):
+        multiplier = sheet.cell(row=i, column=col).value
+        sheet.cell(row=i, column=output_col).value = multiplier * exercise_max
 
 def main():
     try:
@@ -24,63 +44,62 @@ def main():
         wb = Workbook()
         wb.save(filename="Workout.xlsx")
     # Create variables to reference to particular sheets in the Excel doc
-    maxes = wb['Maxes']  # currently unused
+    maxes = wb['Maxes']
     upper_1 = wb['Upper1']
     lower_1 = wb['Lower1']
     upper_2 = wb['Upper2']
     lower_2 = wb['Lower2']
-    theo_maxes = wb['Theoretical Weight Scheme']  # currently unused
 
-    """Sample code for updating one single cell
-    weight = upper_1['D4'].value # float
-    final_weights = weight_calculator.weight_calc(weight)
-    final_weights = str(final_weights)
-    upper_1['F4'] = final_weights"""
+    user_maxes = {
+        "Bench Press": maxes['B2'].value,
+        "Overhead Press": maxes['B3'].value,
+        "Barbell Row": maxes['B4'].value,
+        "Squat": maxes['B5'].value,
+        "Deadlift": maxes['B6'].value,
+        "Calf Raise": maxes['B7'].value,
+    }
+    print(user_maxes)
+
+
 
     # Upper1 - Bench Press
-    # Update the excel cells, section by section
-    # TODO: Update with function to update each row, rather than iterating several times
-    for i in range(3, 10):
-        bench_total = upper_1.cell(row=i, column=4).value
-        upper_1.cell(row=i, column=5).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
-            ']', '')
+    # Update the Excel cells, section by section
+    update_total(row_min=3, row_max=10, col=3, output_col=4, sheet=upper_1, exercise_max=user_maxes['Bench Press'])
+    iter_weight_calc(row_min=3, row_max=10, col=4, output_col=5, sheet=upper_1)
     # Upper1 - Overhead Press
-    for i in range(3, 9):
-        ohp_total = upper_1.cell(row=i, column=10).value
-        upper_1.cell(row=i, column=11).value = str(weight_calculator.weight_calc(ohp_total)).replace('[', '').replace(
-            ']', '')
-    #  Upper2 - Bench Press
-    for i in range(3, 8):
-        bench_total = upper_2.cell(row=i, column=4).value
-        upper_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
-            ']', '')
-    #  Upper2 - Close-grip Bench Press
-    for i in range(11, 15):
-        bench_total = upper_2.cell(row=i, column=4).value
-        upper_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(bench_total)).replace('[', '').replace(
-            ']', '')
-
+    update_total(row_min=13, row_max=19, col=3, output_col=4, sheet=upper_1, exercise_max=user_maxes['Overhead Press'])
+    iter_weight_calc(row_min=13, row_max=19, col=4, output_col=5, sheet=upper_1)
+    # Upper1 - Barbell Row
+    update_total(row_min=22, row_max=26, col=3, output_col=4, sheet=upper_1, exercise_max=user_maxes['Barbell Row'])
+    iter_weight_calc(row_min=22, row_max=26, col=4, output_col=5, sheet=upper_1)
+    # Upper2 - Bench Press
+    update_total(row_min=3, row_max=8, col=3, output_col=4, sheet=upper_2, exercise_max=user_maxes['Bench Press'])
+    iter_weight_calc(row_min=3, row_max=8, col=4, output_col=5, sheet=upper_2)
+    # Upper2 - Close-grip Bench Press
+    update_total(row_min=11, row_max=15, col=3, output_col=4, sheet=upper_2, exercise_max=user_maxes['Bench Press'])
+    iter_weight_calc(row_min=11, row_max=15, col=4, output_col=5, sheet=upper_2)
+    # Upper2 - Barbell Row
+    update_total(row_min=18, row_max=22, col=3, output_col=4, sheet=upper_2, exercise_max=user_maxes['Barbell Row'])
+    iter_weight_calc(row_min=18, row_max=22, col=4, output_col=5, sheet=upper_2)
     # Lower Days
-    #   Lower1 - Conventional Squat
-    for i in range(3, 10):
-        squat_total = lower_1.cell(row=i, column=4).value
-        lower_1.cell(row=i, column=5).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
-            ']', '')
-    #  Lower1 - Sumo Deadlift
-    for i in range(13, 17):
-        sdl_total = lower_1.cell(row=i, column=4).value
-        lower_1.cell(row=i, column=5).value = str(weight_calculator.weight_calc(sdl_total)).replace('[', '').replace(
-            ']', '')
-    #  Lower2 - Conventional Deadlift
-    for i in range(3, 8):
-        cdl_total = lower_2.cell(row=i, column=4).value
-        lower_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(cdl_total)).replace('[', '').replace(
-            ']', '')
-    #  Lower2 - Front Squat
-    for i in range(12, 18):
-        squat_total = lower_2.cell(row=i, column=4).value
-        lower_2.cell(row=i, column=5).value = str(weight_calculator.weight_calc(squat_total)).replace('[', '').replace(
-            ']', '')
+    # Lower1 - Conventional Squat
+    update_total(row_min=3, row_max=10, col=3, output_col=4, sheet=lower_1, exercise_max=user_maxes['Squat'])
+    iter_weight_calc(row_min=3, row_max=10, col=4, output_col=5, sheet=lower_1)
+    # Lower1 - Sumo Deadlift
+    update_total(row_min=13, row_max=17, col=3, output_col=4, sheet=lower_1, exercise_max=user_maxes['Deadlift'])
+    iter_weight_calc(row_min=13, row_max=17, col=4, output_col=5, sheet=lower_1)
+    # Lower1 - Calf Raise
+    update_total(row_min=22, row_max=26, col=3, output_col=4, sheet=lower_1, exercise_max=user_maxes['Calf Raise'])
+    iter_weight_calc(row_min=22, row_max=26, col=4, output_col=5, sheet=lower_1)
+    # Lower2 - Conventional Deadlift
+    update_total(row_min=3, row_max=8, col=3, output_col=4, sheet=lower_2, exercise_max=user_maxes['Deadlift'])
+    iter_weight_calc(row_min=3, row_max=8, col=4, output_col=5, sheet=lower_2)
+    # Lower2 - Front Squat
+    update_total(row_min=12, row_max=18, col=3, output_col=4, sheet=lower_2, exercise_max=user_maxes['Squat'])
+    iter_weight_calc(row_min=12, row_max=18, col=4, output_col=5, sheet=lower_2)
+    # Lower2 - Calf Raise
+    update_total(row_min=21, row_max=25, col=3, output_col=4, sheet=lower_2, exercise_max=user_maxes['Calf Raise'])
+    iter_weight_calc(row_min=21, row_max=25, col=4, output_col=5, sheet=lower_2)
 
     # Save the spreadsheet over the previous spreadsheet
     wb.save('Workout.xlsx')
