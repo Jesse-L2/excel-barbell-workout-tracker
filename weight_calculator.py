@@ -43,9 +43,6 @@ def weight_calc(total: float) -> list[float]:
 
 
 """Notes for future improvements
-1) Hold the weights list in the excel spreadsheet and pull those values into a dict with key = weight,
-and value = quantity (in pairs)
-2) Change the weight_calc function so that rather than deleting an element, it simply starts at the next index
+1) Change the weight_calc function so that rather than deleting an element, it simply starts at the next index
 Reasoning: it is not the best practice to delete items from a list as it is being iterated over
-3) Would a deque be a better data structure to use? It would eliminate del weights[0] and weights[0]
 """
